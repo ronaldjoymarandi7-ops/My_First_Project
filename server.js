@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+const path = require('path');
 
 // 1. Connect to MongoDB Compass (Local)
 mongoose.connect('mongodb://127.0.0.1:27017/form_demo')
@@ -22,7 +23,7 @@ app.post('/submit', async (req, res) => {
             email: req.body.userEmail
         });
         await newUser.save();
-        res.send("<h1>Data Saved! Check MongoDB Compass.</h1>");
+        res.sendFile(path.join(__dirname,'public','thanks.html'));
     } catch (err) {
         res.status(500).send("Error saving data");
     }
